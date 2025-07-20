@@ -7,10 +7,21 @@
     <title>AWS学習記録</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 min-h-screen p-4 font-sans">
-    <div class="overflow-auto max-h-[80vh] border border-gray-300 rounded-lg shadow bg-white">
+    <div class="mb-4">
+        <button id="toggleBreadcrumbs" class="text-sm text-blue-600 underline mb-2">
+            パンくずリストを表示
+        </button>
+        <div id="breadcrumbs" class="flex flex-wrap gap-2 text-sm text-blue-600 underline hidden"></div>
+    </div>
+    <div class="overflow-auto max-h-[70vh] border border-gray-300 rounded-lg shadow bg-white">
         <table class="w-full table-auto">
             <thead class="sticky top-0 bg-gray-100 z-10 shadow-sm">
                 <tr>
@@ -33,17 +44,39 @@
             header: true,
             complete: function (results) {
                 const tbody = document.getElementById('table-body');
+                const breadcrumbs = document.getElementById('breadcrumbs');
+
                 results.data.forEach((row, index) => {
                     const memo = row["メモ"].replace(/\r?\n/g, "<br>");
+                    const no = row["No"];
                     const tr = document.createElement('tr');
+                    tr.id = `no-${no}`;
+
                     tr.className = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                     tr.innerHTML = `
                         <td class="px-4 py-3 border-b border-gray-200">${row["No"]}</td>
                         <td class="px-4 py-3 border-b border-gray-200 break-words">${memo}</td>
                         `;
                     tbody.appendChild(tr);
+
+                    // パンくずリストの生成
+                    if (no) {
+                        const breadcrumb = document.createElement('a');
+                        breadcrumb.href = `#no-${no}`;
+                        breadcrumb.textContent = `${no}`;
+                        breadcrumb.className = 'hover:underline';
+                        breadcrumbs.appendChild(breadcrumb);
+                    }
                 });
             }
+        });
+
+        const toggleBtn = document.getElementById('toggleBreadcrumbs');
+        const breadcrumbs = document.getElementById('breadcrumbs');
+
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = breadcrumbs.classList.toggle('hidden');
+            toggleBtn.textContent = isHidden ? 'パンくずリストを表示' : 'パンくずリストを非表示';
         });
     </script>
 </body>
