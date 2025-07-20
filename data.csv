@@ -184,3 +184,10 @@ AWS Elastic Disaster Recoveryはマシンを対象のAWSアカウントと優先
 278,"CloudFrontディストリビューションのオリジンにAutoScalingグループは指定できない。
 インメモリキャッシュとしてDAX(DynamoDB Acceleratorを利用することでパフォーマンス向上が期待できる。"
 279,RedShiftのConcurrency Scaling機能はRedShiftクラスタに追加のノードを自動的に起動して、読み取りクエリの負荷を分散させる機能。
+281,Amazon QuickSightは動的スキーマをサポートしていない。
+284,"EMRのコスト最適化戦略として以下が効果的となる。
+・マスターノードとコアノードにオンデマンドインスタンスを使用する。
+・タスクノードにスポットインスタンスを使用する。"
+285,"Amazon WorkspacesではどのIPアドレスからアクセスできるか制御できる。
+IPアクセス制御グループとWorkspacesディレクトリを関連付けることで制御可能。"
+289,Direct Connect Gatewayを使用することで複数のAWSリージョンに分散したVPCにまたがる接続を確立できる。
